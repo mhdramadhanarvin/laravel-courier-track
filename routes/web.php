@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TrackController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('track-courier');
+    return view('home');
 });
+
+Route::post('/track', [TrackController::class, 'track'])->name('track');
