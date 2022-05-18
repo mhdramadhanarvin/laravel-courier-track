@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'binderbyte' => [
+        'url'   => env('BINDERBYTE_URL'),
+        'api_key' => env('BINDERBYTE_APIKEY'),
+    ],
+
 ];

@@ -117,42 +117,53 @@
     </style>
 </head>
 
-<body class="d-flex h-100 text-center text-white bg-dark">
+<body class="d-flex h-100 text-center text-white bg-dark pt-5">
 
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <header class="mb-auto">
+    <div class="cover-container d-flex w-100 pt-5 mx-auto ">
+        {{-- <header class="mb-auto">
             <div>
             </div>
-        </header>
+        </header> --}}
 
-        <main class="px-3">
+        <main class="px-3 mt-5">
             <h1>Track Courier.</h1>
             <p class="lead">You don't know where your courier is? Track it here!!!.</p>
             <p class="lead">
-                <form method="POST" action="{{ route('track') }}">
-                    @csrf
-                    <div class="row justify-content-center mb-3">
-                        <label for="tracking-number" name="tracking-number" class="form-label">Enter tracking number</label>
-                        <div class="col-10">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" id="tracking-number" name="tracking-number" placeholder="Enter tracking number here">
-                                <select class="form-select" id="courier" name="courier">
-                                  <option selected>Select courier...</option>
-                                  <option value="jne">JNE</option>
-                                  <option value="jet">J&T</option>
-                                  <option value="sicepat">SiCepat</option>
-                                </select>
-                              </div>
+            <form method="POST" action="{{ route('track') }}">
+                @csrf
+                <div class="alert alert-danger alert-dismissible p-2 fade show" role="alert">
+                    @foreach ($errors->all() as $error)
+                        {{ $error }} <br />
+                    @endforeach
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div class="row justify-content-center mb-3">
+                    <label for="tracking-number" name="tracking-number" class="form-label">Enter tracking
+                        number</label>
+                    <div class="col-10">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="tracking-number" name="track-number"
+                                placeholder="Enter tracking number here">
+                            <select class="form-select" id="courier" name="courier">
+                                <option selected value="">Select courier...</option>
+                                <option value="jne">JNE</option>
+                                <option value="jet">J&T</option>
+                                <option value="sicepat">SiCepat</option>
+                            </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Track Now</button>
-                </form>
+                </div>
+                <button type="submit" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Track Now</button>
+            </form>
             </p>
         </main>
 
         <footer class="mt-auto text-white-50">
         </footer>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
