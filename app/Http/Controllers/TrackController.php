@@ -11,6 +11,9 @@ class TrackController extends Controller
     public function track(ValidTrackRequest $request)
     {
         $validated = $request->validated();
-        return (new BinderByteTrackerService())->http('v1/track', ['courier' => 'jnt', 'awb' => 'JP0198497048']);
+        // return (new BinderByteTrackerService())->http('v1/track', ['courier' => 'jnt', 'awb' => 'JP0198497048']);
+        $tracking_data = (new BinderByteTrackerService())->track($request->courier, $request->tracking_code);
+
+        return $tracking_data;
     }
 }

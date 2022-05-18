@@ -6,39 +6,35 @@ use Illuminate\Support\Facades\Http;
 
 class BinderByteTrackerService
 {
-    protected $tracking_code, $courier, $result;
+    private $url, $api_key;
 
-    public function http($path, $params = [])
+    public function __construct()
     {
+        $this->url = config('services.binderbyte.url');
+        $this->api_key = config('services.binderbyte.api_key');
+    }
 
-        $fullurl = config('services.binderbyte.url').$path;
+    private function http($path, $params = [])
+    {
+        $fullurl = $this->url.$path;
         $query_params = array_merge($params, [
-            'api_key'   => config('services.binderbyte.api_key')
+            'api_key'   => $this->api_key
         ]);
-        // dd($fullurl, $query_params);
-
         $request = Http::get($fullurl, $query_params);
-
         $response = $request->object();
-
         return $response;
-
     }
 
-    public function track($tracking_code, $result)
+    public function track($courier, $tracking_code)
     {
-
+        return $this->http('v1/track', [
+            'courier' => $courier,
+            'awb' => $tracking_code
+        ]);
     }
-
-
 
     public function list_courier()
     {
-
-    }
-
-    public function status()
-    {
-
+        return $this->http('v1/list_courier');
     }
 }

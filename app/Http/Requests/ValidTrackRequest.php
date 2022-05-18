@@ -24,7 +24,7 @@ class ValidTrackRequest extends FormRequest
     public function rules()
     {
         return [
-            'track-number' => 'required',
+            'tracking_code' => 'required',
             'courier' => 'required'
         ];
     }
