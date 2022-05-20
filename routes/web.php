@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\TrackController;
+use App\Services\BinderByteTrackerService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,5 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('home');
-});
-
+Route::get('/', [TrackController::class, 'home'])->name('home');
 Route::post('/track', [TrackController::class, 'track'])->name('track');
