@@ -3,34 +3,20 @@
 @section('content')
     <h1>Track Courier.</h1>
     <p class="lead">
-    <table class="table text-light">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-            </tr>
-        </tbody>
+    <table class="table table-borderless text-light">
+        <tr>
+            <td colspan="2" scope="col" align="left">Summary</th>
+        </tr>
+        <tr class="lh-sm">
+            <td align="left">Courier</td>
+            <td align="left">:</td>
+            <td align="left">J&T Express - Sameday</td>
+        </tr>
+        <tr>
+            <td align="left">Tracking Code</td>
+            <td align="left">:</td>
+            <td align="left">JP0198497048</td>
+        </tr>
     </table>
     </p>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Exception;
 use Illuminate\Support\Facades\Http;
 
 class BinderByteTrackerService
@@ -16,13 +17,17 @@ class BinderByteTrackerService
 
     private function http($path, $params = [])
     {
-        $fullurl = $this->url.$path;
-        $query_params = array_merge($params, [
-            'api_key'   => $this->api_key
-        ]);
-        $request = Http::get($fullurl, $query_params);
-        $response = $request->object();
-        return $response;
+        try {
+            $fullurl = $this->url.$path;
+            $query_params = array_merge($params, [
+                'api_key'   => $this->api_key
+            ]);
+            $request = Http::get($fullurl, $query_params);
+            $response = $request->object();
+            return $response;
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
     }
 
     public function track($courier, $tracking_code)
