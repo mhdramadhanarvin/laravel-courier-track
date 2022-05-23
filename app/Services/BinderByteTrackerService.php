@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use Exception;
+use PhpParser\Node\Expr\Throw_;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\ValidationException;
 
 class BinderByteTrackerService
 {
@@ -24,9 +26,13 @@ class BinderByteTrackerService
             ]);
             $request = Http::get($fullurl, $query_params);
             $response = $request->object();
-            return $response;
+            // $request->throw();
+            // return $response;
+            return $request->throw(function ($response, $e) {
+                throw new Exception($e->getMessage());
+            })->json();
         } catch (Exception $e) {
-            dd($e->getMessage());
+            return $e->getMessage();
         }
     }
 
