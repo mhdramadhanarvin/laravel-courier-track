@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\ValidTrackRequest;
 use App\Services\BinderByteTrackerService;
+use Exception;
 
 class TrackController extends Controller
 {
@@ -22,12 +23,22 @@ class TrackController extends Controller
 
     public function track(ValidTrackRequest $request)
     {
-        $validated = $request->validated();
-        dd($validated->errors());
-        // return (new BinderByteTrackerService())->http('v1/track', ['courier' => 'jnt', 'awb' => 'JP0198497048']);
-        $tracking_data = (new BinderByteTrackerService())->track($request->courier, $request->tracking_code);
-        // $tracking_data = null;
+        // (new BinderByteTrackerService())->http('v1/track', ['courier' => 'jnt', 'awb' => 'JP0198497048']);
+        try {
+            $validated = $request->validated();
+            $courier = $request->courier;
+            $tracking_code = $request->tracking_code;
+            $cache_key = $courier . '_' . $tracking_code;
+            $tracking_data = Cache::get($cache_key);
+            if (!$tracking_data) {
+                $tracking_data = (new BinderByteTrackerService())->track($courier, $tracking_code)->data;
+                Cache::put($cache_key, $tracking_data, now()->addHour());
+            }
 
-        return view('result', ['data' => $tracking_data]);
+            return view('result', ['data' => $tracking_data]);
+
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

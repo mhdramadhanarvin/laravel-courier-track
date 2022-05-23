@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Track Courier.</h1>
+    <h1 class="pt-5 mt-5">Track Courier.</h1>
     <p class="lead">You don't know where your courier is? Track it here!!!.</p>
     <p class="lead">
     <form method="POST" action="{{ route('track') }}">

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Exception;
+use Throwable;
 use PhpParser\Node\Expr\Throw_;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
@@ -25,14 +26,10 @@ class BinderByteTrackerService
                 'api_key'   => $this->api_key
             ]);
             $request = Http::get($fullurl, $query_params);
-            $response = $request->object();
-            // $request->throw();
-            // return $response;
-            return $request->throw(function ($response, $e) {
-                throw new Exception($e->getMessage());
-            })->json();
+            return $request->throw()->object();
         } catch (Exception $e) {
             return $e->getMessage();
+            // abort($e->getCode(), $e->getMessage());
         }
     }
 
