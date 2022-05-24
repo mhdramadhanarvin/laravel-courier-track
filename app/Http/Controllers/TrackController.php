@@ -38,7 +38,9 @@ class TrackController extends Controller
             return view('result', ['data' => $tracking_data]);
 
         } catch (Exception $e) {
-            return $e->getMessage();
+            $errors = new \Illuminate\Support\MessageBag();
+            $errors->add('Server', 'Internal server error, try again later!');
+            return redirect()->route('home')->withErrors($errors);
         }
     }
 }

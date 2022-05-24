@@ -27,9 +27,9 @@ class BinderByteTrackerService
             ]);
             $request = Http::get($fullurl, $query_params);
             return $request->throw()->object();
-        } catch (Exception $e) {
-            return $e->getMessage();
-            // abort($e->getCode(), $e->getMessage());
+        } catch (\Throwable $th) {
+            $response = $th->response->json();
+            abort($response['status'], $response['message']);
         }
     }
 
